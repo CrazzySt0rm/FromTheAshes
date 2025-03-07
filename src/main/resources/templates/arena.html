@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <title>ARENA</title>
+</head>
+
+<style>
+  body {
+  background: url('https://img1.akspic.ru/crops/3/0/6/1/5/151603/151603-tuman-fentezi-solnechnyjsvet-prirodnyjlandshaft-cifrovoeiskusstvo-1920x1080.jpg');
+  }
+  .ara {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  }
+  .ora {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  }
+
+  .wr {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  }
+  .wn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  }
+
+  .red_blue {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  }
+
+  .bat_res {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  }
+
+</style>
+
+<script>
+  function addItem() {
+    alert("Изображение успешно сохранено в базу данных")
+    }
+</script>
+
+<body>
+
+<div class="ara">
+
+</div>
+
+<div class="ora">
+  <form action="/mage/create" method="post">
+    Укажите полный аддресс фото или изображения бойца в синем углу: <input type="text" name="mageImageUrl"><br>
+    Введите id бойца в синем углу: <input type="text" name="cloudId"><br>
+    Введите имя бойца в синем углу: <input type="text" name="name"><br>
+    Введите значение силы бойца в синем углу: <input type="number" name="power"><br>
+    Введите значение защиты бойца в синем углу: <input type="number" name="defence"><br>
+<!--    Введите тип атаки бойца в синем углу: <input type="text" name="type"><br>-->
+<!--    Введите название элемента бойца в синем углу: <input type="text" name="element"><br>-->
+    <input type="submit" id="addItem" value="отправить данные синего бойца"><br>
+
+  </form>
+
+  <form action="/archer/create" method="post">
+    Укажите полный аддресс фото или изображения бойца в красном углу: <input type="text" name="archerImageUrl"><br>
+    Введите id бойца в красном углу: <input type="text" name="cloudId"><br>
+    Введите имя бойца в красном углу: <input type="text" name="name"><br>
+    Введите значение силы бойца в красном углу: <input type="number" name="power"><br>
+    Введите значение защиты бойца в красном углу: <input type="number" name="defence"><br>
+<!--    Введите тип атаки бойца в красном углу: <input type="text" name="type"><br>-->
+<!--    Введите название элемента бойца в красном углу: <input type="text" name="element"><br>-->
+    <input type="submit" id="addItemTwo" value="отправить данные красного бойца"><br>
+  </form>
+
+    <p data-th-text="${result}">result</p>
+</div>
+
+<div class="red_blue">
+  Синий:<br><p data-th-text="${test2}"></p>
+
+  Красный:<br><p data-th-text="${test3}"></p>
+</div>
+
+<div class="bat_res">
+  <form action="/winner">
+    <button type="submit">battle result</button>
+  </form>
+</div>
+
+<img src="https://img2.akspic.ru/crops/9/9/2/1/4/141299/141299-feshn-art-zhenskij_pol-proizvedenie_iskusstva-samuraj-1920x1080.jpg" width="340" height="200">
+
+<!--<div class="wr">-->
+<!--  <p data-th-text="${test2}"></p>-->
+<!--</div>-->
+
+<div class="wn">
+  <p data-th-text="${test3}"></p>
+</div>
+<!--<textarea data-th-text="${test2}"></textarea>-->
+
+</body>
+</html>
