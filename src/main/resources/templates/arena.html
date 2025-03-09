@@ -18,7 +18,7 @@
   .ora {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   }
 
   .wr {
@@ -55,59 +55,56 @@
 
 <body>
 
-<div class="ara">
+<div class="ara"></div>
 
-</div>
+<img src="https://img2.akspic.ru/crops/9/9/2/1/4/141299/141299-feshn-art-zhenskij_pol-proizvedenie_iskusstva-samuraj-1920x1080.jpg" width="340" height="200">
 
 <div class="ora">
-  <form action="/mage/create" method="post">
-    Укажите полный аддресс фото или изображения бойца в синем углу: <input type="text" name="mageImageUrl"><br>
-    Введите id бойца в синем углу: <input type="text" name="cloudId"><br>
-    Введите имя бойца в синем углу: <input type="text" name="name"><br>
-    Введите значение силы бойца в синем углу: <input type="number" name="power"><br>
-    Введите значение защиты бойца в синем углу: <input type="number" name="defence"><br>
-<!--    Введите тип атаки бойца в синем углу: <input type="text" name="type"><br>-->
-<!--    Введите название элемента бойца в синем углу: <input type="text" name="element"><br>-->
-    <input type="submit" id="addItem" value="отправить данные синего бойца"><br>
+  <div th:if="${not #lists.isEmpty(savedMage)}">
+    <h2>Информация о маге:</h2>
+    <p>Имя: <span th:text="${savedMage.name}"></span></p>
+    <p>Сила: <span th:text="${savedMage.power}"></span></p>
+    <img th:src="${savedMage.imageUrl}" alt="Изображение мага"/>
+  </div>
 
+  <form action="#" th:action="@{/mage/create}" method="post">
+    <label for="name">Имя мага:</label><br/>
+    <input type="text" id="name" name="name"/><br/>
+    <label for="power">Сила мага:</label><br/>
+    <input type="number" id="power" name="power"/><br/>
+    <label for="mageImageUrl">URL изображения мага:</label><br/>
+    <input type="text" id="mageImageUrl" name="mageImageUrl"/><br/><br/>
+    <button type="submit">Создать мага</button>
   </form>
 
-  <form action="/archer/create" method="post">
-    Укажите полный аддресс фото или изображения бойца в красном углу: <input type="text" name="archerImageUrl"><br>
-    Введите id бойца в красном углу: <input type="text" name="cloudId"><br>
-    Введите имя бойца в красном углу: <input type="text" name="name"><br>
-    Введите значение силы бойца в красном углу: <input type="number" name="power"><br>
-    Введите значение защиты бойца в красном углу: <input type="number" name="defence"><br>
-<!--    Введите тип атаки бойца в красном углу: <input type="text" name="type"><br>-->
-<!--    Введите название элемента бойца в красном углу: <input type="text" name="element"><br>-->
-    <input type="submit" id="addItemTwo" value="отправить данные красного бойца"><br>
+
+  <div th:if="${not #lists.isEmpty(savedArcher)}">
+    <h2>Информация о лучнике:</h2>
+    <p>Имя: <span th:text="${savedArcher.name}"></span></p>
+    <p>Сила: <span th:text="${savedArcher.power}"></span></p>
+    <img th:src="${savedArcher.imageUrl}" alt="Изображение лучника"/>
+  </div>
+
+  <form action="#" th:action="@{/archer/create}" method="post">
+    <label for="name">Имя лучника:</label><br/>
+    <input type="text" id="archer_name_" name="name"/><br/>
+    <label for="power">Сила лучника:</label><br/>
+    <input type="number" id="archer_power" name="power"/><br/>
+    <label for="archerImageUrl">URL изображения лучника:</label><br/>
+    <input type="text" id="archerImageUrl" name="archerImageUrl"/><br/><br/>
+    <button type="submit">Создать лучника</button>
   </form>
-
-    <p data-th-text="${result}">result</p>
-</div>
-
-<div class="red_blue">
-  Синий:<br><p data-th-text="${test2}"></p>
-
-  Красный:<br><p data-th-text="${test3}"></p>
 </div>
 
 <div class="bat_res">
-  <form action="/winner">
+  <form action="/results">
     <button type="submit">battle result</button>
   </form>
 </div>
 
-<img src="https://img2.akspic.ru/crops/9/9/2/1/4/141299/141299-feshn-art-zhenskij_pol-proizvedenie_iskusstva-samuraj-1920x1080.jpg" width="340" height="200">
-
-<!--<div class="wr">-->
-<!--  <p data-th-text="${test2}"></p>-->
-<!--</div>-->
-
 <div class="wn">
   <p data-th-text="${test3}"></p>
 </div>
-<!--<textarea data-th-text="${test2}"></textarea>-->
 
 </body>
 </html>

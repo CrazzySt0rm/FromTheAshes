@@ -8,7 +8,7 @@
     <style>
 
         body {
-        background: linear-gradient(to right, #283048, #859398);
+        background: linear-gradient(to right, #eacda3, #d6ae7b);
         }
 
         .etc {
@@ -48,51 +48,23 @@
     </style>
 </head>
 
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--    $.ajax({-->
-<!--        url: "/comparison/winner",-->
-<!--        type: "GET",-->
-<!--        success: function(result) {-->
-<!--            $("#result").html(result);-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--            console.error("Error: ", xhr.status, status, error);-->
-<!--        }-->
-<!--    });-->
-<!--});-->
-<!--</script>-->
 <body>
 
-<div class="etc">
-    <div th:if="${result == 'error'}">
-        <h1>Ошибка!</h1>
-        <p>Произошла ошибка при определении победителя.</p>
-    </div>
-    <div th:if="${result != null && result != 'error'}">
-        <h1>Результат дуэли</h1>
-        <p th:text="${result}"></p>
-    </div>
+<h1>Результаты битвы</h1>
 
-</div>
-
-<div class="ig">
-<!--    <img src="https://sun9-88.userapi.com/impg/643uDudAs3Jc2FboCkqS2seL-8_yd6Jhz7djQw/T- -->
-<!--QrFsaV5zs.jpg?size=1280x720&quality=96&sign=2f8d52b87567e8a340bb4e7fdadf693e&c_uniq_tag=O18DlKR1pmbXv-Gmcw9D_FuhBbgE1- -->
-<!--j3Qc9mIRgxKBE&type=album" width="540" height="300"/>-->
-
-<!--    <img src="https://stihi.ru/pics/2021/11/29/7850.jpg" width="540" height="350" alt="Лучник"/>-->
-
-<!--    <img src="https://avatars.mds.yandex.net/i?id=219db8b168f1476c0099733d482a9d6c_l-6348765-images-thumbs&ref=rim&n=13&w=1920&h=1080"-->
-<!--         width="540" height="350" alt="Маг"/>-->
-
-
-</div>
-
-<img th:src="@{'/archer/' + ${Yyn}}" width="540" height="350" alt="Saggittarius">
-
-
-
+<h1>Победитель!</h1>
+<p th:if="${winner != null}">
+    Имя победителя: <span th:text="${winner.winnerName}"></span><br />
+    Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
+    <img th:src="${winner.winnerImageUrl}" alt="Изображение победителя" />
+</p>
+<p th:if="${winner == null}">
+    Победителя нет!
+</p>
+<p th:if="${winner.winnerName == null}">
+    Ничья!
+</p>
+<a href="/arena">Вернуться на арену</a>
 
 </body>
 </html>

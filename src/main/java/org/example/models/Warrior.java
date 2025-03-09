@@ -24,9 +24,9 @@ public class Warrior {
 
     private String name;
 
-    private long power;
+    private Long power;
 
-    private long defence;
+    private Long defence;
 
     private String type;  //physic / magic
 
