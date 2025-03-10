@@ -52,21 +52,19 @@ public class ArenaController {
 
     @GetMapping("/results")
     public String getResults(Model model) {
-        // Определяем победителя битвы
         BattleResult battleResult = battleService.determineWinner();
-
-        // Выводим результат в лог для отладки
         log.info("Результат битвы: {}", battleResult);
 
-        // Проверяем, что battleResult не равен null
-        if (battleResult != null) {
-            // Передаем результат в модель для отображения в представлении
+        if (battleResult != null && battleResult.isWon()) {
+            // Победитель определен
+            model.addAttribute("winner", battleResult);
+        } else if (battleResult != null && battleResult.isTie()) {
+            // Ничья
             model.addAttribute("winner", battleResult);
         } else {
-            // Если battleResult равен null, передаем пустой объект
+            // Нет данных о бое
             model.addAttribute("winner", new BattleResult());
         }
-
         // Возвращаем имя представления
         return "battle_results";
     }

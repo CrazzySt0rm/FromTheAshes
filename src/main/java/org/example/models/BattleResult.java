@@ -12,12 +12,22 @@ public class BattleResult {
     private String winnerName;
     private Long winnerPower;
     private String winnerImageUrl;
-    private boolean isMageWinner;
+    private boolean isWon;
+    private boolean isTie;
 
-    public BattleResult(String winnerName, long winnerPower, String winnerImageUrl, boolean isMageWinner) {
+    public BattleResult(String winnerName, Long winnerPower, String winnerImageUrl, boolean isWon, boolean isTie) {
         this.winnerName = winnerName;
         this.winnerPower = winnerPower;
         this.winnerImageUrl = winnerImageUrl;
-        this.isMageWinner = isMageWinner;
+        this.isWon = isWon;
+        this.isTie = isTie;
+    }
+
+    public boolean isWon() {
+        return isWon;
+    }
+
+    public boolean isTie() {
+        return isTie;
     }
 }

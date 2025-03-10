@@ -52,17 +52,24 @@
 
 <h1>Результаты битвы</h1>
 
-<h1>Победитель!</h1>
-<p th:if="${winner != null}">
-    Имя победителя: <span th:text="${winner.winnerName}"></span><br />
-    Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
-    <img th:src="${winner.winnerImageUrl}" alt="Изображение победителя" />
-</p>
+
+<div th:if="${winner != null}">
+    <h1 th:if="${winner.winnerName != null}">Победитель!</h1>
+    <h1 th:if="${winner.isTie()}">Ничья!</h1>
+
+    <p th:if="${winner.winnerName != null}">
+        Имя победителя: <span th:text="${winner.winnerName}"></span><br />
+        Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
+        <img th:src="${winner.winnerImageUrl}" alt="Изображение победителя" />
+    </p>
+
+    <p th:if="${winner.isTie()}">
+        <img th:src="${winner.winnerImageUrl}" alt="Изображение ничьей" />
+    </p>
+</div>
+
 <p th:if="${winner == null}">
     Победителя нет!
-</p>
-<p th:if="${winner.winnerName == null}">
-    Ничья!
 </p>
 <a href="/arena">Вернуться на арену</a>
 
