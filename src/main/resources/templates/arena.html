@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <link th:href="@{/styles.css}" rel="stylesheet">
     <title>ARENA</title>
 </head>
 
@@ -45,6 +46,12 @@
   justify-content: center;
   }
 
+  .tl {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  }
+
 </style>
 
 <script>
@@ -55,11 +62,18 @@
 
 <body>
 
+<div class="tl">
+  <h1>Арена</h1>
+</div>
+
+
 <div class="ara"></div>
 
 <img src="https://img2.akspic.ru/crops/9/9/2/1/4/141299/141299-feshn-art-zhenskij_pol-proizvedenie_iskusstva-samuraj-1920x1080.jpg" width="340" height="200">
 
 <div class="ora">
+
+
   <div th:if="${not #lists.isEmpty(savedMage)}">
     <h2>Информация о маге:</h2>
     <p>Имя: <span th:text="${savedMage.name}"></span></p>
@@ -68,6 +82,8 @@
   </div>
 
   <form action="#" th:action="@{/mage/create}" method="post">
+    <label for="cloudId">id мага:</label><br/>
+    <input type="text" id="mageId" name="cloudId"/><br/>
     <label for="name">Имя мага:</label><br/>
     <input type="text" id="name" name="name"/><br/>
     <label for="power">Сила мага:</label><br/>
@@ -86,6 +102,8 @@
   </div>
 
   <form action="#" th:action="@{/archer/create}" method="post">
+    <label for="cloudId">id лучника:</label><br/>
+    <input type="text" id="archerId" name="cloudId"/><br/>
     <label for="name">Имя лучника:</label><br/>
     <input type="text" id="archer_name_" name="name"/><br/>
     <label for="power">Сила лучника:</label><br/>
@@ -102,8 +120,46 @@
   </form>
 </div>
 
+<div class="ml">
+  <div class="form-group">
+    <input class="form-field" type="email" placeholder="Email">
+
+  </div>
+</div>
+
 <div class="wn">
-  <p data-th-text="${test3}"></p>
+  <div class="container">
+
+    <div class="checkbox">
+      <input id="input-1" type="checkbox" />
+      <label for="input-1">
+        <span>Accept terms and conditions</span>
+      </label>
+    </div>
+    <div class="checkbox">
+      <input id="input-2" type="checkbox" checked="" />
+      <label for="input-2">
+        <span>I agree with everything always</span>
+      </label>
+    </div>
+  </div>
+
+</div>
+
+<div class="oneStyle">
+
+  <form action="#" th:action="@{/mage/search}" method="post">
+    <label for="cloudIdTwo">Введите Cloud ID мага:</label><br/>
+    <input type="text" id="cloudIdTwo" name="cloudId" required/><br/>
+    <button type="submit">Найти</button>
+  </form>
+
+  <form action="#" th:action="@{/archer/search}" method="post">
+    <label for="cloudId">Введите Cloud ID лучника:</label><br/>
+    <input type="text" id="cloudId" name="cloudId" required/><br/>
+    <button type="submit">Найти</button>
+  </form>
+
 </div>
 
 </body>

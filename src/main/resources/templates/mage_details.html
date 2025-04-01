@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Детали мага</title>
+</head>
+<body>
+
+<div th:if="${mage != null}">
+  <h1>Информация о маге</h1>
+  <p>Имя: <span th:text="${mage.name}"></span></p>
+  <p>Cloud ID: <span th:text="${mage.cloudId}"></span></p>
+  <!-- Изображение мага -->
+  <img th:src="${mage.mageImageUrl}" alt="Изображение мага"/>
+</div>
+
+<div th:if="${errorMessage != null}">
+  <p th:text="${errorMessage}"></p>
+</div>
+
+<a href="/arena">Вернуться к поиску</a>
+
+</body>
+</html>

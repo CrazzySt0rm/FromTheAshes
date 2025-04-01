@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArenaService {
@@ -22,10 +23,12 @@ public class ArenaService {
     private final WarriorRepository warriorRepository;
     private final MageRepository mageRepository;
 
+
     public ArenaService(ArcherRepository archerRepository, WarriorRepository warriorRepository, MageRepository mageRepository) {
         this.archerRepository = archerRepository;
         this.warriorRepository = warriorRepository;
         this.mageRepository = mageRepository;
+
     }
 
     //POST
@@ -72,6 +75,14 @@ public class ArenaService {
     //GET
     public List<Archer> readArcher() {
         return archerRepository.findAll();
+    }
+
+    public Optional<Archer> readArcherByCloudId(String cloudId) {
+        return archerRepository.findByCloudId(cloudId);
+    }
+
+    public Optional<Mage> readMageByCloudId(String cloudId) {
+        return mageRepository.findByCloudId(cloudId);
     }
 
     public List<Mage> readMage() {

@@ -4,18 +4,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <link th:href="@{/styles.css}" rel="stylesheet">
     <title>Результаты битвы</title>
     <style>
 
         body {
         background: linear-gradient(to right, #eacda3, #d6ae7b);
-        }
-
-        .etc {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         }
 
         .ig {
@@ -50,28 +45,35 @@
 
 <body>
 
-<h1>Результаты битвы</h1>
+<!--<h1>Результаты битвы</h1>-->
+
+<div class="etc">
 
 
-<div th:if="${winner != null}">
-    <h1 th:if="${winner.winnerName != null}">Победитель!</h1>
-    <h1 th:if="${winner.isTie()}">Ничья!</h1>
+    <div th:if="${winner != null}">
+        <h1 th:if="${winner.winnerName != null}">Победитель!</h1>
+        <h1 th:if="${winner.isTie()}">Ничья!</h1>
 
-    <p th:if="${winner.winnerName != null}">
-        Имя победителя: <span th:text="${winner.winnerName}"></span><br />
-        Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
-        <img th:src="${winner.winnerImageUrl}" alt="Изображение победителя" />
+        <p th:if="${winner.winnerName != null}">
+            Имя победителя: <span th:text="${winner.winnerName}"></span><br />
+            Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
+            <img th:src="${winner.winnerImageUrl}" width="350" height="450" alt="Изображение победителя" />
+        </p>
+
+        <p th:if="${winner.isTie()}">
+            <img th:src="${winner.winnerImageUrl}" alt="Изображение ничьей" />
+        </p>
+    </div>
+
+    <p th:if="${winner == null}">
+        Победителя нет!
     </p>
 
-    <p th:if="${winner.isTie()}">
-        <img th:src="${winner.winnerImageUrl}" alt="Изображение ничьей" />
-    </p>
 </div>
 
-<p th:if="${winner == null}">
-    Победителя нет!
-</p>
-<a href="/arena">Вернуться на арену</a>
+<div class="etc2">
+    <a href="/arena">Вернуться на арену</a>
+</div>
 
 </body>
 </html>

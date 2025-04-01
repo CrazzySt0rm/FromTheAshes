@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    <link th:href="@{/styles.css}" rel="stylesheet">
+    <title>Детали лучника</title>
+</head>
+<body>
+
+<div class="arch_res">
+    <div th:if="${archer != null}">
+        <h1>Информация о лучнике</h1>
+        <p>Имя: <span th:text="${archer.name}"></span></p>
+        <p>Cloud ID: <span th:text="${archer.cloudId}"></span></p>
+        <!-- Изображение лучника -->
+        <img th:src="${archer.archerImageUrl}" alt="Изображение лучника"/>
+    </div>
+
+    <div th:if="${errorMessage != null}">
+        <p th:text="${errorMessage}"></p>
+    </div>
+</div>
+
+
+<a href="/arena">Вернуться к поиску</a>
+
+</body>
+</html>
