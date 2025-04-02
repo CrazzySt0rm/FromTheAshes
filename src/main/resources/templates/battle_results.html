@@ -1,11 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, width=device-width">
-    <link th:href="@{/styles.css}" rel="stylesheet">
+
+
     <title>Результаты битвы</title>
     <style>
 
@@ -20,56 +20,268 @@
         align-items: center;
         }
 
-        .red_blue {
+        .results-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
         }
-        .blue, .red {
-            padding: 10px;
-            border-radius: 5px;
-            width: 200px;
-            text-align: center;
-        }
-        .blue {
-            background-color: lightblue;
-            color: darkblue;
-        }
-        .red {
-            background-color: pink;
-            color: red;
-        }
+
+       .winner-section,
+       .loser-section {
+            margin: 10px;
+       }
+
+        .loser-image {
+    position: relative;
+    overflow: hidden; /* Скрываем лишние части линий */
+}
+
+.loser-image::before,
+.loser-image::after {
+    content: '';
+    position: absolute;
+    background-color: #321011;
+    transition: all 0.5s ease-in-out; /* Время и плавность анимации */
+    transform-origin: center; /* Центр вращения для анимации */
+}
+
+.loser-image::before { /* Горизонтальная линия */
+    top: 50%;
+    left: 0;
+    width: 0; /* Начальное состояние - нулевая ширина */
+    height: 4px;
+    animation: drawHorizontalLine 0.75s forwards; /* Сокращенная длительность анимации */
+}
+
+.loser-image::after { /* Вертикальная линия */
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 0; /* Начальное состояние - нулевая высота */
+    animation: drawVerticalLine 0.75s 0.375s forwards; /* Задержка и сокращенная длительность */
+}
+
+@keyframes drawHorizontalLine {
+    to {
+        width: 100%; /* Полная ширина */
+    }
+}
+
+@keyframes drawVerticalLine {
+    to {
+        height: 100%; /* Полная высота */
+    }
+}
+
+.loser-image.animate::before {
+    width: 100%; /* Полная ширина */
+    animation: drawHorizontalLine 0.5s forwards; /* Запускаем анимацию */
+}
+
+.loser-image.animate::after {
+    height: 100%; /* Полная высота */
+    animation: drawVerticalLine 0.5s 0.25s forwards; /* Задержка перед началом анимации */
+}
+
     </style>
 </head>
+
+
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--    const loserSection = document.querySelector('.loser-section'); // Получаем секцию проигравшего-->
+<!--    if (loserSection) {-->
+<!--        const loserImage = loserSection.querySelector('.loser-image'); // Получаем изображение проигравшего-->
+<!--        if (loserImage) {-->
+<!--            const canvas = document.createElement('canvas');-->
+<!--            canvas.width = loserImage.clientWidth;-->
+<!--            canvas.height = loserImage.clientHeight;-->
+<!--            const ctx = canvas.getContext('2d');-->
+
+<!--            let horizontalProgress = 0;  // Прогресс горизонтальной линии-->
+<!--            let verticalProgress = 0;    // Прогресс вертикальной линии-->
+<!--            const lineSpeed = 5;         // Скорость анимации-->
+
+<!--            // Функция для анимации горизонтальной линии-->
+<!--            function animateHorizontalLine() {-->
+<!--                ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем canvas перед каждым циклом-->
+<!--                ctx.beginPath();-->
+<!--                ctx.moveTo(0, canvas.height / 2); // Начинаем с верхнего левого угла-->
+<!--                ctx.lineTo(horizontalProgress * canvas.width / 100, canvas.height / 2); // Ведем к нижнему правому углу-->
+<!--                ctx.strokeStyle = '#8B0000';-->
+<!--                ctx.lineWidth = 4;-->
+<!--                ctx.stroke();-->
+
+<!--                horizontalProgress += lineSpeed;-->
+
+<!--                if (horizontalProgress <= 100) {-->
+<!--                    requestAnimationFrame(animateHorizontalLine);-->
+<!--                } else {-->
+<!--                    // Завершаем горизонтальную линию-->
+<!--                    ctx.beginPath();-->
+<!--                    ctx.moveTo(0, canvas.height / 2); // Рисуем полную горизонтальную линию-->
+<!--                    ctx.lineTo(canvas.width, canvas.height / 2);-->
+<!--                    ctx.stroke();-->
+
+<!--                    // После завершения анимации горизонтальной линии запускаем анимацию вертикальной-->
+<!--                    animateVerticalLine();-->
+<!--                }-->
+<!--            }-->
+
+<!--            // Функция для анимации вертикальной линии-->
+<!--            function animateVerticalLine() {-->
+<!--                // Не очищаем canvas перед вертикальной линией, чтобы сохранить горизонтальную-->
+<!--                ctx.beginPath();-->
+<!--                ctx.moveTo(canvas.width / 2, 0); // Начинаем с верхнего правого угла-->
+<!--                ctx.lineTo(canvas.width / 2, verticalProgress * canvas.height / 100); // Ведем к нижнему левому углу-->
+<!--                ctx.strokeStyle = '#8B0000';-->
+<!--                ctx.lineWidth = 4;-->
+<!--                ctx.stroke();-->
+
+<!--                verticalProgress += lineSpeed;-->
+
+<!--                if (verticalProgress <= 100) {-->
+<!--                    requestAnimationFrame(animateVerticalLine);-->
+<!--                } else {-->
+<!--                    // Завершаем вертикальную линию-->
+<!--                    ctx.beginPath();-->
+<!--                    ctx.moveTo(canvas.width / 2, 0); // Рисуем полную вертикальную линию-->
+<!--                    ctx.lineTo(canvas.width / 2, canvas.height);-->
+<!--                    ctx.stroke();-->
+<!--                }-->
+<!--            }-->
+
+<!--            // Запускаем анимацию горизонтальной линии-->
+<!--            animateHorizontalLine();-->
+
+<!--            // Помещаем canvas поверх изображения-->
+<!--            loserSection.style.position = 'relative'; // Делаем родителя относительно позиционированным-->
+<!--            canvas.style.position = 'absolute';      // Позиционируем canvas абсолютно-->
+<!--            canvas.style.top = '50%';-->
+<!--            canvas.style.left = '50%';-->
+<!--            canvas.style.transform = 'translate(-50%, -50%)'; // Центрируем canvas относительно родителя-->
+<!--            canvas.style.marginTop = '48px'; // Компенсируем высоту линии-->
+<!--            canvas.style.marginLeft = '0px'; // Компенсируем ширину линии-->
+<!--            loserSection.appendChild(canvas);       // Добавляем canvas в конец секции проигравшего-->
+<!--        }-->
+<!--    }-->
+<!--});-->
+<!--</script>-->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const loserSection = document.querySelector('.loser-section');
+    if (loserSection) {
+        const loserImage = loserSection.querySelector('.loser-image');
+        if (loserImage) {
+            const canvas = document.createElement('canvas');
+            canvas.width = loserImage.clientWidth;
+            canvas.height = loserImage.clientHeight;
+            const ctx = canvas.getContext('2d');
+
+            let firstDiagonalProgress = 0;
+            let secondDiagonalProgress = 0;
+            const lineSpeed = 5;
+
+            function animateFirstDiagonalLine() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(firstDiagonalProgress * canvas.width / 100, firstDiagonalProgress * canvas.height / 100);
+                ctx.strokeStyle = '#8B0000';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                firstDiagonalProgress += lineSpeed;
+
+                if (firstDiagonalProgress <= 100) {
+                    requestAnimationFrame(animateFirstDiagonalLine);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(canvas.width, canvas.height);
+                    ctx.stroke();
+                    animateSecondDiagonalLine();
+                }
+            }
+
+            function animateSecondDiagonalLine() {
+                ctx.beginPath();
+                ctx.moveTo(canvas.width, 0);
+                ctx.lineTo(canvas.width - secondDiagonalProgress * canvas.width / 100, secondDiagonalProgress * canvas.height / 100);
+                ctx.strokeStyle = '#8B0000';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                secondDiagonalProgress += lineSpeed;
+
+                if (secondDiagonalProgress <= 100) {
+                    requestAnimationFrame(animateSecondDiagonalLine);
+                } else {
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width, 0);
+                    ctx.lineTo(0, canvas.height);
+                    ctx.stroke();
+                }
+            }
+
+            animateFirstDiagonalLine();
+
+            loserSection.style.position = 'relative';
+            canvas.style.position = 'absolute';
+            canvas.style.top = '50%';
+            canvas.style.left = '50%';
+            canvas.style.transform = 'translate(-50%, -50%)';
+            canvas.style.marginTop = '48px';
+            canvas.style.marginLeft = '0px';
+            loserSection.appendChild(canvas);
+        }
+    }
+});
+</script>
 
 <body>
 
 <!--<h1>Результаты битвы</h1>-->
 
-<div class="etc">
 
+<div th:if="${winner != null}">
+    <!--        <h1 th:if="${winner.winnerName != null && !winner.isDraw()}">Победитель!</h1>-->
+    <h1 th:if="${winner.winnerName != null && !winner.isDraw()}"></h1>
+    <h1 th:if="${winner.isDraw()}">Ничья!</h1>
 
-    <div th:if="${winner != null}">
-        <h1 th:if="${winner.winnerName != null}">Победитель!</h1>
-        <h1 th:if="${winner.isTie()}">Ничья!</h1>
+    <div class="results-container">
+        <div class="winner-section">
+            <p th:if="${winner.winnerName != null && !winner.isDraw()}">
+            <h1>Победитель</h1>
+            Имя победителя: <span th:text="${winner.winnerName}"></span><br/>
+            Сила победителя: <span th:text="${winner.winnerPower}"></span><br/>
+            <img th:src="${winner.winnerImageUrl}" width="350" height="450" alt="Изображение победителя"/>
+            </p>
+        </div>
 
-        <p th:if="${winner.winnerName != null}">
-            Имя победителя: <span th:text="${winner.winnerName}"></span><br />
-            Сила победителя: <span th:text="${winner.winnerPower}"></span><br />
-            <img th:src="${winner.winnerImageUrl}" width="350" height="450" alt="Изображение победителя" />
-        </p>
+        <div class="loser-section">
+            <p th:if="${winner.winnerName != null && !winner.isDraw()}">
+            <h1>Проигравший</h1>
+            Имя проигравшего: <span th:text="${winner.loserName}"></span><br/>
+            Сила проигравшего: <span th:text="${winner.loserPower}"></span><br/>
+            <img th:src="${winner.loserImageUrl}" width="350" height="450" alt="Изображение проигравшего"
+                 class="loser-image"/>
+            </p>
 
-        <p th:if="${winner.isTie()}">
-            <img th:src="${winner.winnerImageUrl}" alt="Изображение ничьей" />
-        </p>
+        </div>
     </div>
 
-    <p th:if="${winner == null}">
-        Победителя нет!
+    <p th:if="${winner.isDraw()}">
+        <img th:src="${winner.winnerImageUrl}" alt="Изображение ничьей"/>
     </p>
-
 </div>
+
+<p th:if="${winner == null}">
+    Победителя нет!
+</p>
+
+<!--</div>-->
 
 <div class="etc2">
     <a href="/arena">Вернуться на арену</a>

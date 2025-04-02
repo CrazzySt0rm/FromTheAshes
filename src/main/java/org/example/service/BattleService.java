@@ -30,7 +30,16 @@ public class BattleService {
 
         if (lastMage == null || lastArcher == null) {
             log.warn("Нет данных для определения победителя.");
-            return new BattleResult(null, 0L, null, false, false);
+            return new BattleResult(
+                    null,         // winnerName
+                    0L,           // winnerPower
+                    null,         // winnerImageUrl
+                    null,         // loserName
+                    0L,           // loserPower
+                    null,         // loserImageUrl
+                    false,        // isWinner
+                    false         // isDraw
+            );
         }
 
         log.info("Сила мага: {}", lastMage.getPower());
@@ -38,21 +47,45 @@ public class BattleService {
 
         Long magePower = lastMage.getPower();
         Long archerPower = lastArcher.getPower();
-
         String mageName = lastMage.getName();
         String archerName = lastArcher.getName();
 
         if (magePower > archerPower) {
             log.info("Маг победил!");
-            return new BattleResult(mageName, magePower, lastMage.getMageImageUrl(), true, false);
+            return new BattleResult(
+                    mageName,
+                    magePower,
+                    lastMage.getMageImageUrl(),
+                    archerName,
+                    archerPower,
+                    lastArcher.getArcherImageUrl(),
+                    true, // isWinner
+                    false // isDraw
+            );
         } else if (archerPower > magePower) {
             log.info("Лучник победил!");
-            return new BattleResult(archerName, archerPower, lastArcher.getArcherImageUrl(), true,false);
+            return new BattleResult(
+                    archerName,
+                    archerPower,
+                    lastArcher.getArcherImageUrl(),
+                    mageName,
+                    magePower,
+                    lastMage.getMageImageUrl(),
+                    true, // isWinner
+                    false // isDraw
+            );
         } else {
             log.info("Ничья!");
-            return new BattleResult(null, 0L, "https://sun9-88.userapi.com/impg/643uDudAs3Jc2FboCkqS2seL-" +
-                    "8_yd6Jhz7djQw/T-QrFsaV5zs.jpg?size=1280x720&quality=96&sign=2f8d52b87567e8a340bb4e7fdadf693e&c_uniq_tag=O18DlKR1pmbXv-Gmcw9D_" +
-                    "FuhBbgE1-j3Qc9mIRgxKBE&type=album", false, true);
+            return new BattleResult(
+                    null,
+                    0L,
+                    "url_to_draw_image",
+                    null,
+                    0L,
+                    null,
+                    false, // isWinner
+                    true   // isDraw
+            );
         }
     }
 }

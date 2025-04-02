@@ -86,10 +86,10 @@ public class ArenaController {
         BattleResult battleResult = battleService.determineWinner();
         log.info("Результат битвы: {}", battleResult);
 
-        if (battleResult != null && battleResult.isWon()) {
+        if (battleResult != null && battleResult.isWinner()) {
             // Победитель определен
             model.addAttribute("winner", battleResult);
-        } else if (battleResult != null && battleResult.isTie()) {
+        } else if (battleResult != null && battleResult.isDraw()) {
             // Ничья
             model.addAttribute("winner", battleResult);
         } else {

@@ -12,22 +12,31 @@ public class BattleResult {
     private String winnerName;
     private Long winnerPower;
     private String winnerImageUrl;
-    private boolean isWon;
-    private boolean isTie;
+    private String loserImageUrl; // Новое поле для изображения проигравшего
+    private String loserName; // Новое поле для имени проигравшего
+    private Long loserPower;  // Новое поле для силы проигравшего
+    private boolean isWinner;
+    private boolean isDraw;
 
-    public BattleResult(String winnerName, Long winnerPower, String winnerImageUrl, boolean isWon, boolean isTie) {
+    public BattleResult(String winnerName, Long winnerPower, String winnerImageUrl, String loserName, Long loserPower,
+                        String loserImageUrl, boolean isWinner, boolean isDraw) {
         this.winnerName = winnerName;
         this.winnerPower = winnerPower;
         this.winnerImageUrl = winnerImageUrl;
-        this.isWon = isWon;
-        this.isTie = isTie;
+        this.loserName = loserName;
+        this.loserPower = loserPower;
+        this.loserImageUrl = loserImageUrl;
+
+
+        this.isWinner = isWinner;
+        this.isDraw = isDraw;
     }
 
     public boolean isWon() {
-        return isWon;
+        return isWinner;
     }
 
     public boolean isTie() {
-        return isTie;
+        return isDraw;
     }
 }
